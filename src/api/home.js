@@ -10,8 +10,19 @@ export const getAllCateGory = () => {
 
 // 获取轮播图
 export const getAllBanner = () => {
-    return request({
-      method: 'get',
-      url: 'home/banner'
-    })
-  }
+  return request({
+    method: 'get',
+    url: 'home/banner'
+  })
+}
+
+// 获取新鲜好物
+export const getAllNews = (query = 4) => {
+  return request({
+    method: 'get',
+    url: 'home/new',
+    params: {
+      query
+    }
+  })
+}
