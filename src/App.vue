@@ -1,15 +1,9 @@
 <script setup>
-import { getCateGory } from '@/api/test'
-const sendAjax = async () => {
-  let res = await getCateGory()
-  console.log(res)
-}
+import Layout from '@/views/Layout/index.vue'
 </script>
 
 <template>
-  <el-button type="primary" @click="sendAjax">Primary</el-button>
-
-  <RouterView />
+  <Layout />
 </template>
 
-<style scoped></style>
+
