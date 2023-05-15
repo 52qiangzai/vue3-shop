@@ -26,3 +26,11 @@ export const getAllNews = (query = 4) => {
     }
   })
 }
+
+// 获取人气推荐
+export const getAllHots = () => {
+  return request({
+    method: 'get',
+    url: 'home/hot',
+  })
+}

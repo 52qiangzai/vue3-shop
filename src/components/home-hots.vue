@@ -1,15 +1,12 @@
 <template>
-  <HomePanel title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
-    <template #right>
-      <MyMore />
-    </template>
+  <HomePanel title="人气推荐" sub-title="人气爆款 不容错过">
     <template #main>
       <ul class="goods-list">
-        <li v-for="item in newsList" :key="item.id">
+        <li v-for="item in hotsList" :key="item.id">
           <RouterLink to="/">
             <img :src="item.picture" alt="" />
-            <p class="name">{{ item.name }}</p>
-            <p class="price">&yen;{{ item.price }}</p>
+            <p class="name">{{ item.title }}</p>
+            <p class="desc">{{ item.alt }}</p>
           </RouterLink>
         </li>
       </ul>
@@ -18,21 +15,20 @@
 </template>
 
 <script setup>
-import { getAllNews } from '@/api/home'
+import { getAllHots } from '@/api/home'
 import { onBeforeMount, ref } from 'vue'
 import HomePanel from '@/components/home-panel.vue'
-import MyMore from '@/components/my-more.vue'
 
-const newsList = ref([])
+const hotsList = ref([])
 
-const getNewsList = async () => {
-  let { code, result } = await getAllNews()
+const getHotsList = async () => {
+  let { code, result } = await getAllHots()
   if (code === '1') {
-    newsList.value = result
+    hotsList.value = result
   }
 }
 onBeforeMount(() => {
-  getNewsList()
+  getHotsList()
 })
 </script>
 
@@ -40,11 +36,10 @@ onBeforeMount(() => {
 .goods-list {
   display: flex;
   justify-content: space-between;
-  height: 406px;
+  height: 426px;
   li {
     width: 306px;
     height: 406px;
-    background: #f0f9f4;
     transition: all 0.3s;
     img {
       width: 306px;
@@ -54,12 +49,10 @@ onBeforeMount(() => {
       font-size: 22px;
       padding-top: 12px;
       text-align: center;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
     }
-    .price {
-      color: $priceColor;
+    .desc {
+      color: #999;
+      font-size: 18px;
     }
     &:hover {
       transform: translate3d(0, -3px, 0);
