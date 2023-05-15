@@ -31,6 +31,17 @@ export const getAllNews = (query = 4) => {
 export const getAllHots = () => {
   return request({
     method: 'get',
-    url: 'home/hot',
+    url: 'home/hot'
+  })
+}
+
+// 获取热门品牌
+export const getAllBrand = (limit = 10) => {
+  return request({
+    method: 'get',
+    url: 'home/brand',
+    params: {
+      limit
+    }
   })
 }
