@@ -1,7 +1,7 @@
 <template>
   <!-- card卡片 -->
   <div class="box">
-    <router-link class="cover" to="/">
+    <router-link class="cover" :to="`/category/${cardInfo.id}`">
       <img :src="cardInfo.picture" :alt="cardInfo.name" />
       <strong class="label"
         ><span>{{ cardInfo.name }}</span
@@ -11,7 +11,7 @@
     <ul class="good-list">
       <li v-for="item in goodsItemList" :key="item.id">
         <div class="goods-item">
-          <router-link to="/">
+          <router-link :to=" `/product/${item.id}`">
             <img :alt="item.name" :src="item.picture" />
           </router-link>
           <p class="name ellipsis-2">{{ item.name }}</p>
@@ -39,7 +39,6 @@ defineProps({
     default: []
   }
 })
-
 </script>
 <style lang="scss" scoped>
 .box {
@@ -85,6 +84,9 @@ defineProps({
       height: 300px;
       margin-right: 10px;
       margin-bottom: 10px;
+      &:nth-child(4n) {
+        margin-right: 0;
+      }
       .goods-item {
         width: 240px;
         height: 300px;

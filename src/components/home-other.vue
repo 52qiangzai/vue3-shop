@@ -29,34 +29,35 @@ const goodsListCm = computed(() => {
 // 根据id计算出每个商品卡片的子菜单sub
 const subGoodsList = computed(() => {
   return (id) => {
-    console.log(id);
+    console.log(id)
     let res = goodsList.value.find((item) => item.id === id)
     return res.children
   }
 })
 
 // 根据id计算出每个商品卡片的商品子类
-const goodsItemList = computed((id) => {
-  let res = goodsList.value.find((item) => item.id === id)
-  return res.goods
+const goodsItemList = computed(() => {
+  return (id) => {
+    let res = goodsList.value.find((item) => item.id === id)
+    return res.goods
+  }
 })
 
-// getAllGoodsList()
+getAllGoodsList()
 </script>
 
 <template>
   <HomePanel :title="good.name" v-for="good in goodsListCm" :key="good.id">
     <template #right>
       <div class="sub">
-        <!-- <router-link to="/" v-for="sub in subGoodsList(good.id)" :key="sub.id">{{
+        <router-link :to="`/category/sub/${sub.id}`" v-for="sub in subGoodsList(good.id)" :key="sub.id">{{
           sub.name
-        }}</router-link> -->
-        {{ subGoodsList(111111) }}
+        }}</router-link>
       </div>
       <MyMore />
     </template>
     <template #main>
-      <!-- <HomeCard :goodsItemList="goodsItemList(good.id)" :cardInfo="good" /> -->
+      <HomeCard :goodsItemList="goodsItemList(good.id)" :cardInfo="good" />
     </template>
   </HomePanel>
 </template>
