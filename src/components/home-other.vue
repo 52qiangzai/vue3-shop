@@ -2,7 +2,7 @@
 import HomePanel from '@/components/home-panel.vue'
 import HomeCard from '@/components/home-card.vue'
 import MyMore from '@/components/my-more.vue'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { getAllGoods } from '@/api/home'
 
 const goodsList = ref([])
@@ -54,7 +54,7 @@ getAllGoodsList()
           sub.name
         }}</router-link>
       </div>
-      <MyMore />
+      <MyMore :path="`/category/${good.id}`"/>
     </template>
     <template #main>
       <HomeCard :goodsItemList="goodsItemList(good.id)" :cardInfo="good" />
