@@ -53,3 +53,11 @@ export const getAllGoods = () => {
     url: 'home/goods'
   })
 }
+
+// 获取最新专题
+export const getAllSpecial = () => {
+  return request({
+    method: 'get',
+    url: 'home/special'
+  })
+}

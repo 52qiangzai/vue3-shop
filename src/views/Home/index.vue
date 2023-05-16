@@ -14,6 +14,7 @@
     <Hots />
     <BrandList />
     <HomeOther />
+    <HomeSpecial />
   </div>
 </template>
 
@@ -24,5 +25,6 @@ import HomeNews from '@/components/home-news.vue'
 import Hots from '@/components/home-hots.vue'
 import BrandList from '@/components/home-brand.vue'
 import HomeOther from '@/components/home-other.vue'
+import HomeSpecial from '@/components/home-special.vue'
 </script>
 <style lang="scss" scoped></style>
