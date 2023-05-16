@@ -5,5 +5,3 @@ import Layout from '@/views/Layout/index.vue'
 <template>
   <Layout />
 </template>
-
-

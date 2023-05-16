@@ -45,3 +45,11 @@ export const getAllBrand = (limit = 10) => {
     }
   })
 }
+
+// 获取商品信息（居家，美食，母婴，服饰）
+export const getAllGoods = () => {
+  return request({
+    method: 'get',
+    url: 'home/goods'
+  })
+}

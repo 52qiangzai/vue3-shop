@@ -13,6 +13,7 @@
     <!-- 人气推荐 -->
     <Hots />
     <BrandList />
+    <HomeOther />
   </div>
 </template>
 
@@ -20,7 +21,8 @@
 import HomeCategory from '@/components/home-category.vue'
 import HomeBanner from '@/components/home-banner.vue'
 import HomeNews from '@/components/home-news.vue'
-import Hots from '@/components/home-hots.vue'           
+import Hots from '@/components/home-hots.vue'
 import BrandList from '@/components/home-brand.vue'
+import HomeOther from '@/components/home-other.vue'
 </script>
 <style lang="scss" scoped></style>

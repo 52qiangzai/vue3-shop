@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
+import 'element-plus/es/components/message/style/css'
 // 初始化样式
 import '@/styles/common.scss'
 import App from './App.vue'
