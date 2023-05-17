@@ -1,16 +1,12 @@
 <script setup>
 import MyMore from '@/components/my-more.vue'
 import HomePanel from '@/components/home-panel.vue'
-import { ref } from 'vue'
-import { getAllSpecial } from '@/api/home'
-const specialList = ref([])
-
-const getSpecialList = async () => {
-  let { code, result } = await getAllSpecial()
-  if (code === '1') specialList.value = result
-}
-
-getSpecialList()
+defineProps({
+  specialList: {
+    type: Array,
+    default: []
+  }
+})
 </script>
 
 <template>

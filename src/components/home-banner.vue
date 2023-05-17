@@ -5,20 +5,12 @@
 </template>
 
 <script setup>
-import { getAllBanner } from '@/api/home'
-import { onBeforeMount, ref } from 'vue'
-import myCarousel from './my-carousel.vue'
-
-const bannerList = ref([])
-const getAllBannerFn = async () => {
-  let { code, result } = await getAllBanner()
-  if (code === '1') {
-    bannerList.value = result
+import myCarousel from '@/components/my-carousel.vue'
+defineProps({
+  bannerList: {
+    type: Array,
+    default: []
   }
-}
-
-onBeforeMount(() => {
-  getAllBannerFn()
 })
 </script>
 <style lang="scss" scoped>

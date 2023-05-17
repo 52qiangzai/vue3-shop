@@ -14,29 +14,21 @@
             </RouterLink>
           </li>
         </ul>
-        <HomeSkeleton v-else/>
+        <HomeSkeleton v-else />
       </Transition>
     </template>
   </HomePanel>
 </template>
 
 <script setup>
-import { getAllNews } from '@/api/home'
-import { onBeforeMount, ref } from 'vue'
 import HomePanel from '@/components/home-panel.vue'
 import MyMore from '@/components/my-more.vue'
-import HomeSkeleton from './home-skeleton.vue'
-
-const newsList = ref([])
-
-const getNewsList = async () => {
-  let { code, result } = await getAllNews()
-  if (code === '1') {
-    newsList.value = result
+import HomeSkeleton from '@/components/home-skeleton.vue'
+defineProps({
+  newsList: {
+    type: Array,
+    default: []
   }
-}
-onBeforeMount(() => {
- getNewsList()
 })
 </script>
 

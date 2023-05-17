@@ -29,27 +29,11 @@
 </template>
 
 <script setup>
-import { getAllCateGory } from '@/api/home'
-import { onBeforeMount, ref } from 'vue'
-
-const categoryList = ref([])
-
-const getAllCateGoryFn = async () => {
-  let { code, result } = await getAllCateGory()
-  if (code === '1') {
-    categoryList.value = result.map((item) => {
-      return {
-        id: item.id,
-        name: item.name,
-        goods: item.goods,
-        children: item.children.slice(0, 2)
-      }
-    })
+defineProps({
+  categoryList: {
+    type: Array,
+    default: []
   }
-}
-
-onBeforeMount(() => {
-  getAllCateGoryFn()
 })
 </script>
 <style lang="scss" scoped>

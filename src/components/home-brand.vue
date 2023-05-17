@@ -27,19 +27,18 @@
 </template>
 
 <script setup>
-import { getAllBrand } from '@/api/home'
 import HomePanel from '@/components/home-panel.vue'
-import { onMounted, ref } from 'vue'
+import {  ref } from 'vue'
 
-const brandList = ref([])
+defineProps({
+  brandList: {
+    type: Array,
+    default: []
+  }
+})
+
 const isNext = ref(true)
 
-const getAllBrandList = async () => {
-  let { result, code } = await getAllBrand()
-  if (code === '1') {
-    brandList.value = result
-  }
-}
 
 const brandDom = ref(null)
 
@@ -53,9 +52,6 @@ const nextBrand = () => {
   isNext.value = false
 }
 
-onMounted(() => {
-  getAllBrandList()
-})
 </script>
 <style lang="scss" scoped>
 .content {

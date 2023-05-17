@@ -18,21 +18,15 @@
 </template>
 
 <script setup>
-import { getAllHots } from '@/api/home'
-import { onBeforeMount, ref } from 'vue'
 import HomePanel from '@/components/home-panel.vue'
-import HomeSkeleton from './home-skeleton.vue'
-const hotsList = ref([])
-
-const getHotsList = async () => {
-  let { code, result } = await getAllHots()
-  if (code === '1') {
-    hotsList.value = result
+import HomeSkeleton from '@/components/home-skeleton.vue'
+defineProps({
+  hotsList: {
+    type: Array,
+    default: []
   }
-}
-onBeforeMount(() => {
-  getHotsList()
 })
+
 </script>
 
 <style scoped lang="scss">
