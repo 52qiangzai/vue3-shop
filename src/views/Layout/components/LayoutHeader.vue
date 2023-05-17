@@ -1,38 +1,59 @@
+<script setup>
+import { userCateGoryStore } from '@/stores/category'
+import { ref } from 'vue'
+const categoryStore = userCateGoryStore()
+
+const isShow = ref(false)
+const hoverFn = (e)=>{
+  if(e.target.children[1].classList.contains("open")) return
+  e.target.children[1].classList.add("open")
+}
+const leaveFn = (e)=>{
+  if(!e.target.children[1].classList.contains("open")) return
+  e.target.children[1].classList.remove("open")
+}
+</script>
 <template>
-  <header class='app-header'>
+  <header class="app-header">
     <div class="container">
       <h1 class="logo">
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
         <li class="home">
-          <RouterLink to="/">首页</RouterLink>
+          <RouterLink to="/" class="title">首页</RouterLink>
         </li>
-        <li><a href="#">美食</a></li>
-        <li><a href="#">餐厨</a></li>
-        <li><a href="#">艺术</a></li>
-        <li><a href="#">电器</a></li>
-        <li><a href="#">居家</a></li>
-        <li><a href="#">洗护</a></li>
-        <li><a href="#">孕婴</a></li>
-        <li><a href="#">服装</a></li>
-        <li><a href="#">杂货</a></li>
+        <li
+          v-for="item in categoryStore.categoryList"
+          :key="item.id"
+          @mouseenter="hoverFn($event)"
+          @mouseleave="leaveFn"
+        >
+          <RouterLink :to="`/category/${item.id}`" class="title">{{ item.name }}</RouterLink>
+          <div class="layer">
+            <ul>
+              <li v-for="i in item.children" :key="i.id">
+                <router-link :to="`/category/sub/${i.id}`">
+                  <img v-img-lazy="i.picture" alt="" />
+                  <p>{{ i.name }}</p>
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
       </ul>
       <div class="search">
         <i class="iconfont icon-search"></i>
-        <input type="text" placeholder="搜一搜">
+        <input type="text" placeholder="搜一搜" />
       </div>
       <div class="cart">
-        <a class="curr" href="#">
-          <i class="iconfont icon-cart"></i><em>2</em>
-        </a>
+        <a class="curr" href="#"> <i class="iconfont icon-cart"></i><em>2</em> </a>
       </div>
     </div>
   </header>
 </template>
 
-
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .app-header {
   background: #fff;
 
@@ -64,12 +85,46 @@
       margin-right: 40px;
       width: 38px;
       text-align: center;
-
-      a {
+      &:hover a {
+        color: #27ba9b;
+        border-bottom: 1px solid #27ba9b;
+      }
+      .title {
         font-size: 16px;
         line-height: 32px;
         height: 32px;
         display: inline-block;
+      }
+      .layer {
+        width: 1240px;
+        background-color: #fff;
+        position: absolute;
+        left: -200px;
+        top: 56px;
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+        box-shadow: 0 0 5px #ccc;
+        transition: all 0.2s 0.1s;
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 0 70px;
+          align-items: center;
+          height: 132px;
+          li {
+            width: 110px;
+            text-align: center;
+            img {
+              width: 60px;
+              height: 60px;
+              vertical-align: middle;
+            }
+            p {
+              padding-top: 10px;
+            }
+          }
+        }
       }
     }
   }
@@ -122,5 +177,9 @@
       }
     }
   }
+}
+.open {
+  height: 132px !important;
+  opacity: 1 !important;
 }
 </style>

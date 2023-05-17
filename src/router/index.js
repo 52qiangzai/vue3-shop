@@ -21,7 +21,7 @@ const router = createRouter({
     },
     {
       name: 'category',
-      path: '/category',
+      path: '/category/:id',
       component: () => import('@/views/CateGory/index.vue'),
       meta: {
         isShow: true

@@ -3,7 +3,7 @@
     <div class="home-entry">
       <div class="container">
         <!-- 左侧分类 -->
-        <HomeCategory :categoryList="categoryList" />
+        <HomeCategory :categoryList="categoryStore.categoryList" />
         <!-- banner轮播图 -->
         <HomeBanner :bannerList="bannerList" />
       </div>
@@ -29,7 +29,7 @@ import Hots from '@/components/home-hots.vue'
 import BrandList from '@/components/home-brand.vue'
 import HomeOther from '@/components/home-other.vue'
 import HomeSpecial from '@/components/home-special.vue'
-
+import { userCateGoryStore } from '@/stores/category'
 import {
   getAllCateGory,
   getAllBanner,
@@ -39,25 +39,11 @@ import {
   getAllGoods,
   getAllSpecial
 } from '@/api/home'
-import {  ref } from 'vue'
+import { ref } from 'vue'
 
 // 首页分类
-const categoryList = ref([])
-const getAllCateGoryFn = async () => {
-  let { code, result } = await getAllCateGory()
-  if (code === '1') {
-    categoryList.value = result.map((item) => {
-      return {
-        id: item.id,
-        name: item.name,
-        goods: item.goods,
-        children: item.children.slice(0, 2)
-      }
-    })
-  }
-}
-getAllCateGoryFn()
-
+const categoryStore = userCateGoryStore()
+categoryStore.getAllCateGoryFn()
 // 轮播图组件
 const bannerList = ref([])
 const getAllBannerFn = async () => {

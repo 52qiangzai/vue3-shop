@@ -2,9 +2,9 @@
   <div class="home-category">
     <ul class="menu">
       <li v-for="item in categoryList" :key="item.id">
-        <RouterLink to="/">{{ item.name }}</RouterLink>
+        <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         <template v-if="item.children.length > 0">
-          <RouterLink v-for="i in item.children" :key="i.id" to="/">{{ i.name }}</RouterLink>
+          <RouterLink v-for="i in item.children" :key="i.id" :to="`/category/sub/${i.id}`">{{ i.name }}</RouterLink>
         </template>
         <!-- 弹层layer位置 -->
         <!-- 弹层 -->
@@ -12,7 +12,7 @@
           <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
           <ul>
             <li v-for="i in item.goods" :key="i">
-              <RouterLink to="/">
+              <RouterLink :to="`/product/${i.id}`">
                 <img v-img-lazy="i.picture" :alt="i.desc" />
                 <div class="info">
                   <p class="name ellipsis-2">{{ i.name }}</p>
