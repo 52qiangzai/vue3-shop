@@ -1,9 +1,8 @@
 <script setup>
 import { userCateGoryStore } from '@/stores/category'
-import { ref } from 'vue'
+
 const categoryStore = userCateGoryStore()
 
-const isShow = ref(false)
 const hoverFn = (e)=>{
   if(e.target.children[1].classList.contains("open")) return
   e.target.children[1].classList.add("open")
