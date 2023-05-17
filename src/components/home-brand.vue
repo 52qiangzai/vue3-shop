@@ -18,7 +18,7 @@
       <div class="content">
         <ul class="brand-list" ref="brandDom">
           <li v-for="brand in brandList" :key="brand.id">
-            <a href="#"> <img :src="brand.picture" :alt="brand.name" /></a>
+            <a href="#"> <img v-img-lazy="brand.picture" :alt="brand.name" /></a>
           </li>
         </ul>
       </div>

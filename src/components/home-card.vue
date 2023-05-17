@@ -12,7 +12,7 @@
       <li v-for="item in goodsItemList" :key="item.id">
         <div class="goods-item">
           <router-link :to=" `/product/${item.id}`">
-            <img :alt="item.name" :src="item.picture" />
+            <img :alt="item.name" v-img-lazy="item.picture" />
           </router-link>
           <p class="name ellipsis-2">{{ item.name }}</p>
           <p class="desc ellipsis">{{ item.desc }}</p>

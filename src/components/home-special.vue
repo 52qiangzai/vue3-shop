@@ -22,7 +22,7 @@ getSpecialList()
       <div class="special-list">
         <div class="special-item" v-for="item in specialList" :key="item.id">
           <a href="#">
-            <img :src="item.cover" :alt="item.summary" />
+            <img v-img-lazy="item.cover" :alt="item.summary" />
             <div class="meta">
               <p class="title">
                 <span class="top ellipsis">{{ item.title }}</span

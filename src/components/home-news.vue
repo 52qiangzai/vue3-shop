@@ -4,15 +4,18 @@
       <MyMore />
     </template>
     <template #main>
-      <ul class="goods-list">
-        <li v-for="item in newsList" :key="item.id">
-          <RouterLink to="/">
-            <img :src="item.picture" alt="" />
-            <p class="name">{{ item.name }}</p>
-            <p class="price">&yen;{{ item.price }}</p>
-          </RouterLink>
-        </li>
-      </ul>
+      <Transition name="fade">
+        <ul class="goods-list" v-if="newsList.length">
+          <li v-for="item in newsList" :key="item.id">
+            <RouterLink to="/">
+              <img alt="" v-img-lazy="item.picture" />
+              <p class="name">{{ item.name }}</p>
+              <p class="price">&yen;{{ item.price }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+        <HomeSkeleton v-else/>
+      </Transition>
     </template>
   </HomePanel>
 </template>
@@ -22,6 +25,7 @@ import { getAllNews } from '@/api/home'
 import { onBeforeMount, ref } from 'vue'
 import HomePanel from '@/components/home-panel.vue'
 import MyMore from '@/components/my-more.vue'
+import HomeSkeleton from './home-skeleton.vue'
 
 const newsList = ref([])
 
@@ -32,7 +36,7 @@ const getNewsList = async () => {
   }
 }
 onBeforeMount(() => {
-  getNewsList()
+ getNewsList()
 })
 </script>
 

@@ -1,15 +1,18 @@
 <template>
   <HomePanel title="人气推荐" sub-title="人气爆款 不容错过">
     <template #main>
-      <ul class="goods-list">
-        <li v-for="item in hotsList" :key="item.id">
-          <RouterLink to="/">
-            <img :src="item.picture" alt="" />
-            <p class="name">{{ item.title }}</p>
-            <p class="desc">{{ item.alt }}</p>
-          </RouterLink>
-        </li>
-      </ul>
+      <transition name="fade">
+        <ul class="goods-list" v-if="hotsList.length">
+          <li v-for="item in hotsList" :key="item.id">
+            <RouterLink to="/">
+              <img v-img-lazy="item.picture" alt="" />
+              <p class="name">{{ item.title }}</p>
+              <p class="desc">{{ item.alt }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+        <HomeSkeleton v-else />
+      </transition>
     </template>
   </HomePanel>
 </template>
@@ -18,7 +21,7 @@
 import { getAllHots } from '@/api/home'
 import { onBeforeMount, ref } from 'vue'
 import HomePanel from '@/components/home-panel.vue'
-
+import HomeSkeleton from './home-skeleton.vue'
 const hotsList = ref([])
 
 const getHotsList = async () => {

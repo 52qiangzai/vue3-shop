@@ -9,7 +9,7 @@
         :class="banner.id === bannerId ? 'fade' : ''"
       >
         <RouterLink to="/">
-          <img :src="banner.imgUrl" :alt="banner.imgUrl" />
+          <img v-img-lazy="banner.imgUrl" :alt="banner.imgUrl" />
         </RouterLink>
       </li>
     </ul>
