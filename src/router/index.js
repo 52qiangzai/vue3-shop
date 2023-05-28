@@ -21,8 +21,26 @@ const router = createRouter({
     },
     {
       name: 'category',
-      path: '/category/:id',
+      path: '/category/:id?',
       component: () => import('@/views/CateGory/index.vue'),
+      meta: {
+        isShow: true
+      },
+      children: [
+        {
+          name: 'subcategory',
+          path: 'sub/:sid?',
+          component: () => import('@/views/SubCateGory/index.vue'),
+          meta: {
+            isShow: true
+          }
+        }
+      ]
+    },
+    {
+      name: 'product',
+      path: '/product/:id',
+      component: () => import('@/views/Product/index.vue'),
       meta: {
         isShow: true
       }

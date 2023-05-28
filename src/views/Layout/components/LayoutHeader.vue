@@ -1,19 +1,31 @@
 <script setup>
 import { userCateGoryStore } from '@/stores/category'
-
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 const categoryStore = userCateGoryStore()
+categoryStore.getAllCateGoryFn()
+const route = useRoute()
+// 首页分类
+const hoverFn = (e) => {
+  if (e.target.children[1].classList.contains('open')) return
+  e.target.children[1].classList.add('open')
+}
+const leaveFn = (e) => {
+  if (!e.target.children[1].classList.contains('open')) return
+  e.target.children[1].classList.remove('open')
+}
 
-const hoverFn = (e)=>{
-  if(e.target.children[1].classList.contains("open")) return
-  e.target.children[1].classList.add("open")
-}
-const leaveFn = (e)=>{
-  if(!e.target.children[1].classList.contains("open")) return
-  e.target.children[1].classList.remove("open")
-}
+// 吸顶效果
+const y = ref(0)
+onMounted(() => {
+  window.onscroll = () => {
+    const scrollTop = document.documentElement.scrollTop
+    y.value = scrollTop
+  }
+})
 </script>
 <template>
-  <header class="app-header">
+  <header class="app-header" :class="{ show: y >= 78 }">
     <div class="container">
       <h1 class="logo">
         <RouterLink to="/">小兔鲜</RouterLink>
@@ -22,24 +34,41 @@ const leaveFn = (e)=>{
         <li class="home">
           <RouterLink to="/" class="title">首页</RouterLink>
         </li>
-        <li
-          v-for="item in categoryStore.categoryList"
-          :key="item.id"
-          @mouseenter="hoverFn($event)"
-          @mouseleave="leaveFn"
+        <el-skeleton
+          :loading="!categoryStore.categoryList.length"
+          animated
+          style="display: flex; align-items: center"
         >
-          <RouterLink :to="`/category/${item.id}`" class="title">{{ item.name }}</RouterLink>
-          <div class="layer">
-            <ul>
-              <li v-for="i in item.children" :key="i.id">
-                <router-link :to="`/category/sub/${i.id}`">
-                  <img v-img-lazy="i.picture" alt="" />
-                  <p>{{ i.name }}</p>
-                </router-link>
-              </li>
-            </ul>
-          </div>
-        </li>
+          <template #template>
+            <el-skeleton-item
+              variant="text"
+              style="flex: 1; margin-right: 40px"
+              v-for="i in 9"
+              :key="i"
+            />
+          </template>
+          <template #default>
+            <li
+              v-for="item in categoryStore.categoryList"
+              :key="item.id"
+              @mouseenter="hoverFn($event)"
+              @mouseleave="leaveFn"
+              :class="{ 'current-style': item.id === route.params.id }"
+            >
+              <RouterLink :to="`/category/${item.id}`" class="title">{{ item.name }}</RouterLink>
+              <div class="layer">
+                <ul>
+                  <li v-for="i in item.children" :key="i.id">
+                    <router-link :to="`/category/sub/${i.id}`">
+                      <img v-img-lazy="i.picture" alt="" />
+                      <p>{{ i.name }}</p>
+                    </router-link>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </template>
+        </el-skeleton>
       </ul>
       <div class="search">
         <i class="iconfont icon-search"></i>
@@ -54,8 +83,15 @@ const leaveFn = (e)=>{
 
 <style scoped lang="scss">
 .app-header {
-  background: #fff;
-
+  background-color: #fff;
+  position: sticky;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  transition: all 0.5s;
+  &.show {
+    top: 0 !important;
+  }
   .container {
     display: flex;
     align-items: center;
@@ -180,5 +216,9 @@ const leaveFn = (e)=>{
 .open {
   height: 132px !important;
   opacity: 1 !important;
+}
+.current-style > a {
+  color: #27ba9b;
+  border-bottom: 1px solid #27ba9b;
 }
 </style>

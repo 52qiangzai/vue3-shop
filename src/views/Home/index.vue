@@ -3,9 +3,9 @@
     <div class="home-entry">
       <div class="container">
         <!-- 左侧分类 -->
-        <HomeCategory :categoryList="categoryStore.categoryList" />
+        <HomeCategory :categoryList="categoryStore.categoryListCmp" />
         <!-- banner轮播图 -->
-        <HomeBanner :bannerList="bannerList" />
+        <HomeBanner :bannerList="bannerStore.bannerList" />
       </div>
     </div>
     <!-- 新鲜好物 -->
@@ -30,75 +30,61 @@ import BrandList from '@/components/home-brand.vue'
 import HomeOther from '@/components/home-other.vue'
 import HomeSpecial from '@/components/home-special.vue'
 import { userCateGoryStore } from '@/stores/category'
-import {
-  getAllCateGory,
-  getAllBanner,
-  getAllNews,
-  getAllHots,
-  getAllBrand,
-  getAllGoods,
-  getAllSpecial
-} from '@/api/home'
+import { userBannerStore } from '@/stores/banner'
+import { getAllNews, getAllHots, getAllBrand, getAllGoods, getAllSpecial } from '@/api/home'
 import { ref } from 'vue'
 
 // 首页分类
 const categoryStore = userCateGoryStore()
-categoryStore.getAllCateGoryFn()
 // 轮播图组件
-const bannerList = ref([])
-const getAllBannerFn = async () => {
-  let { code, result } = await getAllBanner()
-  if (code === '1') {
-    bannerList.value = result
-  }
-}
-getAllBannerFn()
+const bannerStore = userBannerStore()
+bannerStore.getAllBannerFn()
 
 // 新鲜好物组件
 const newsList = ref([])
 const getNewsList = async () => {
-  let { code, result } = await getAllNews()
-  if (code === '1') {
+  let { result } = await getAllNews()
+  
     newsList.value = result
-  }
+  
 }
 getNewsList()
 
 // 人气推荐
 const hotsList = ref([])
 const getHotsList = async () => {
-  let { code, result } = await getAllHots()
-  if (code === '1') {
+  let {  result } = await getAllHots()
+  
     hotsList.value = result
-  }
+  
 }
 getHotsList()
 
 // 热门品牌
 const brandList = ref([])
 const getAllBrandList = async () => {
-  let { result, code } = await getAllBrand()
-  if (code === '1') {
+  let { result } = await getAllBrand()
+ 
     brandList.value = result
-  }
+  
 }
 getAllBrandList()
 
 // 居家美食服饰
 const goodsList = ref([])
 const getAllGoodsList = async () => {
-  let { code, result } = await getAllGoods()
-  if (code === '1') {
+  let {  result } = await getAllGoods()
+  
     goodsList.value = result
-  }
+  
 }
 getAllGoodsList()
 
 // 最新专题
 const specialList = ref([])
 const getSpecialList = async () => {
-  let { code, result } = await getAllSpecial()
-  if (code === '1') specialList.value = result
+  let {  result } = await getAllSpecial()
+   specialList.value = result
 }
 getSpecialList()
 </script>

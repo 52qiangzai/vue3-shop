@@ -6,12 +6,21 @@ export const userCateGoryStore = defineStore(
   'category',
   () => {
     const categoryList = ref({})
-
+    // 首页左侧轮播计算后的category
+    const categoryListCmp = ref({})
     const getAllCateGoryFn = () => {
       return new Promise(async (resolve, reject) => {
-        let { code, result } = await getAllCateGory()
-        if (code === '1') {
+        try {
+          let { result } = await getAllCateGory()
           categoryList.value = result.map((item) => {
+            return {
+              id: item.id,
+              name: item.name,
+              goods: item.goods,
+              children: item.children
+            }
+          })
+          categoryListCmp.value = result.map((item) => {
             return {
               id: item.id,
               name: item.name,
@@ -20,15 +29,15 @@ export const userCateGoryStore = defineStore(
             }
           })
           resolve(categoryList.value)
-        } else {
+        } catch (error) {
           reject([])
         }
       })
     }
 
-    return { categoryList, getAllCateGoryFn }
-  },
-  {
-    persist: true
+    return { categoryList, getAllCateGoryFn, categoryListCmp }
   }
+  // {
+  //   persist: true
+  // }
 )

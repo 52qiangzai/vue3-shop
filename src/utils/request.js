@@ -2,7 +2,9 @@
 import axios from 'axios'
 // baseURL设置/超时时间设置
 const request = axios.create({
-  baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
+  //
+  // baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
+  baseURL: ' https://apipc-xiaotuxian-front.itheima.net',
   // baseURL: 'https://www.fastmock.site/mock/cb5b0d019997b77b1839a1075aab69f0/api',
   timeout: 5000
 })

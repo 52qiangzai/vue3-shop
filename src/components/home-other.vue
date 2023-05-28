@@ -26,7 +26,6 @@ const goodsListCm = computed(() => {
 // 根据id计算出每个商品卡片的子菜单sub
 const subGoodsList = computed(() => {
   return (id) => {
-    console.log(id)
     return props.goodsList.find((item) => item.id === id).children
   }
 })
